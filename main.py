@@ -1,8 +1,8 @@
 import math
 
+from Calculators.potential_missions import calculat_potential_missions
 from Readers import csv_reader, txt_reader, json_reader
 from Calculators import aircraft_priority
-from models import aircraft
 from models.aircraft import Aircraft
 from models.pylot import Pylot
 from models.target import Target
@@ -31,37 +31,10 @@ print(pylots_data)
 targets_data = json_reader.read_json_file(target_path)
 targets = []
 for target in targets_data['targets']:
-    location = get_location(target['City'], key)
+    location = get_location(target['City'])
     target = Target(target['City'], target['Priority'], location['lat'], location['lon'])
     targets.append(target)
 print(targets)
 
 #calaulate the potential missions
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-class Pilot:
-  def __init__(self, name:str, skill:int):
-    self.name = name
-    self.skill = skill
-
-
-weights = {
-    "distance" : 0.15,
-    "aircraft_type" : 0.20,
-    "pilot_skill" : 0.20,
-    "weather_conditions" : 0.20,
-    "execution_time" : 0.10,
-    "priority":0.15
-}
+calculat_potential_missions(targets, pylots, aircrafts, origin)
